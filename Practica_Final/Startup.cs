@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Practica_Final.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Practica_Final
 {
@@ -24,6 +26,14 @@ namespace Practica_Final
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+           .AddCookie("Cookies", options =>
+           {
+               options.LoginPath = "/Login";
+               options.LogoutPath = "/Logout";
+           });
+
+            services.AddInfrastructure(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +55,7 @@ namespace Practica_Final
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
