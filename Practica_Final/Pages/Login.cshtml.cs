@@ -41,6 +41,7 @@ namespace PracticaFinal.Pages
             {
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()));
+                identity.AddClaim(new Claim(ClaimTypes.Name, $"{usuario.Nombre} {usuario.Apellido}"));
                 identity.AddClaim(new Claim(ClaimTypes.Email, usuario.Email));
                 identity.AddClaim(new Claim(ClaimTypes.GivenName, usuario.Nombre));
                 identity.AddClaim(new Claim(ClaimTypes.Surname, usuario.Apellido));
