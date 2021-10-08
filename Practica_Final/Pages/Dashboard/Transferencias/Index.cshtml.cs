@@ -94,7 +94,6 @@
                 </select>
 
                 <br><br>
-
                 <label>Cuenta de destino</label><br>
                 <input type="text" id="destino" name="destino">
                 <br><br>
@@ -103,11 +102,7 @@
                 <br><br>
                 <label>Via de pago</label><br>
                 <input type="text" id="destino" name="destino">
-
-
-
-
-
+                <br><br>
                 <label>
                     Monto:<br><br>
                     <label>
