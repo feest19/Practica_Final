@@ -1,0 +1,31 @@
+﻿@page
+@model Practica_Final.Pages.Dashboard.Transacciones.DetailsModel
+@{
+
+}
+<div>
+    <span class="d-inline-block">No.Cuenta Remitente:</span><span> @Model.Transferencia.CuentaBancariaRemitentetarioId</span>
+</div>
+<div>
+   <span class="d-inline-block">No.Cuenta Destinatario:</span><span> @Model.Transferencia.CuentaBancariaDestinatarioId</span>
+</div>
+<div>
+    <span class="d-inline-block">Fecha:</span><span> @Model.Transferencia.Fecha</span>
+</div>
+<div>
+    <span class="d-inline-block">Monto transferencia:</span><span> @Model.Transferencia.Monto </span>
+</div>
+<div>
+    <span class="d-inline-block">Estado</span> @switch (Model.Transferencia.Estado)
+    {
+        case 3:
+            <div class="badge badge-danger">Denegado</div>
+            break;
+        case 2:
+            <div class="badge badge-info">En proceso</div>
+            break;
+        case 1:
+            <div class="badge badge-success">Aprovado</div>
+            break;
+    }
+</div>

@@ -75,6 +75,7 @@
             <div class="row ">
                 @foreach (var cuenta in @Model.Cuentas)
                 {
+                    { }
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="card-statistic-4">
@@ -83,7 +84,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                             <div class="card-content">
                                                 <h5 class="font-15">@Html.DisplayFor(modelItem => cuenta.NumeroCuenta)</h5>
-                                                <h2 class="mb-3 font-18">@Html.DisplayFor(modelItem => cuenta.Monto)</h2>
+                                                <h2 class="mb-3 font-18"> @cuenta.Monto.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</h2>
                                                 <p class="mb-0"><span class="col-green">*</span> @Html.DisplayFor(modelItem => cuenta.TipoCuenta.Tipo)</p>
                                             </div>
                                         </div>
@@ -136,44 +137,53 @@
                                             <th>Fecha</th>
                                             <th>Estado</th>
                                             <th>Monto</th>
+                                            <th></th>
                                         </tr>
 
                                         @foreach (var transfH in Model.transferencias)
                                         {
-                                    <tr>
-                                        <td class="p-0 text-center">
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-6">
-                                                <label for="checkbox-6" class="custom-control-label">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>@Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.NumeroCuenta)</td>
-                                        <td>
-                                            @Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.Usuario.Nombre)
-                                            @Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.Usuario.Apellido)
-                                        </td>
-                                        <td>@Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.NumeroCuenta)</td>
-                                        <td>
-                                            @Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.Usuario.Nombre)
-                                            @Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.Usuario.Apellido)
-                                        </td>
-                                        <td>@Html.DisplayFor(modalItem => transfH.Fecha)</td>
-                                        <td>
-                                            @switch (transfH.Estado)
-                                            {
-                                                case 3:
-                                                    <div class="badge badge-danger">Denegado</div>
-                                                    break;
-                                                case 2:
-                                                    <div class="badge badge-info">En proceso</div>
-                                                    break;
-                                                case 1:
-                                                    <div class="badge badge-success">Aprovado</div>
-                                                    break;
-                                            }
-                                        </td>
-                                        <td><a href="#" class="btn btn-outline-primary">Detalle</a></td>
-                                    </tr>
+                                            <tr>
+                                                <td class="p-0 text-center">
+                                                    <div class="custom-checkbox custom-control">
+                                                        <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-6">
+                                                        <label for="checkbox-6" class="custom-control-label">&nbsp;</label>
+                                                    </div>
+                                                </td>
+                                                <td>@Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.NumeroCuenta)</td>
+                                                <td>
+                                                    @*@Html.DisplayFor(modalItem => Model.GetUserNameBy(transfH.CuentaBancariaDestinatario))*@
+                                                    @Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.Usuario.Nombre)
+                                                    @Html.DisplayFor(modalItem => transfH.CuentaBancariaDestinatario.Usuario.Apellido)
+                                                </td>
+                                                <td>@Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.NumeroCuenta)</td>
+                                                <td>
+                                                    @Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.Usuario.Nombre)
+                                                    @Html.DisplayFor(modalItem => transfH.CuentaBancariaRemitente.Usuario.Apellido)
+                                                </td>
+                                                <td>@Html.DisplayFor(modalItem => transfH.Fecha)</td>
+                                                <td>@transfH.Monto.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+
+                                                <td>
+                                                    @switch (transfH.Estado)
+                                                    {
+                                                        case 3:
+                                                            <div class="badge badge-danger">Denegado</div>
+                                                            break;
+                                                        case 2:
+                                                            <div class="badge badge-info">En proceso</div>
+                                                            break;
+                                                        case 1:
+                                                            <div class="badge badge-success">Aprovado</div>
+                                                            break;
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @*<a href="/Dashboard/Transacciones/Details?id=@transfH.Id" class="btn btn-outline-primary btn-details">
+            Detalle
+        </a>*@
+                                                    <button class="btn btn-outline-primary details" data-id="@transfH.Id" data-toggle="modal" data-target="#details-modal">Detalle</button>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -194,3 +204,27 @@
         </div>
     </footer>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="details-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('button.details').on('click', function () {
+                $('.modal-body').load(`Dashboard/Transacciones/Details?id=${$(this).data('id')}`);
+            });
+        })
+    </script>
+}
