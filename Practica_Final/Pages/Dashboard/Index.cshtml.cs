@@ -8,26 +8,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using Practica_Final.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Practica_Final.Infrastructure.Repositories;
 
 namespace Practica_Final.Pages.Dashboard
 {
     [Authorize(AuthenticationSchemes = "Cookies")]
     public class IndexModel : PageModel
     {
-        private readonly Infrastructure.Contexts.ApplicationDbContext _context;
+        private readonly IRepositoryCuentaBancarias _repositoryCuentas;
+        private readonly IRepositoryUsuario _repositoryUsuario;
+        private readonly IRepositoryTransferencia _repositoryTransferencia;
 
-        public IndexModel(Infrastructure.Contexts.ApplicationDbContext context)
+        public  IndexModel(IRepositoryTransferencia transferenciaServices, IRepositoryUsuario UserServices,IRepositoryCuentaBancarias CuentasServices)
         {
-            _context = context;
+            this._repositoryCuentas = CuentasServices;
+            this._repositoryUsuario = UserServices;
+            this._repositoryTransferencia = transferenciaServices;
+            this.Cuentas = new List<CuentaBancaria>();
+            this.transferencias = new List<Transferencia>();
         }
-        public List<CuentaBancaria> Cuentas { get; set; } 
-        public List<Transferencia> transferencias { get; set; }
+        public IList<CuentaBancaria> Cuentas { get; set; } 
+        public IList<Transferencia> transferencias { get; set; }
         public string Usuario { get; set; }
-        //public void OnGet()
-        //{
-        //    string idUsuario = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
-        //}
+        
         public async Task OnGetAsync()
         {
             int idUsuario;
@@ -35,14 +38,13 @@ namespace Practica_Final.Pages.Dashboard
 
             if (success)
             {
-                var historyTransf = from c in _context.CuentasBancarias
-                                  join t in _context.Transferencias on c.Id equals t.CuentaBancariaDestinatarioId 
-                              where c.UsuarioId == idUsuario
-                              orderby t.Fecha descending
-                              select t;
-              this.Cuentas = await _context.CuentasBancarias.Where(x => x.UsuarioId == idUsuario).ToListAsync();
-                this.transferencias = await historyTransf.Take(5).ToListAsync();
+                this.Cuentas = await _repositoryCuentas.GetCuentasBancariasByUserId(idUsuario);
+                this.transferencias =await _repositoryTransferencia.getTransferenciaByCuentaId(idUsuario);
             }
         }
+
+        #region method
+ 
+        #endregion
     }
 }

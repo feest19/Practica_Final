@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Practica_Final.Infrastructure.Repositories
 {
-    public interface IRepositoryUsuario
+    public interface IRepositoryCuentaBancarias
     {
-        public Task<bool> Register(Usuario usuario);
-        public Task<bool> IsUsuarioExist(string email);
-        public Task<Usuario> GetUsuarioById(int id);
+        public Task<List<CuentaBancaria>> GetCuentasBancariasByUserId(int userID);
+        public Task<Usuario> GetUserByCuentasBancariaID(int cuentaId);
+ 
     }
 }
