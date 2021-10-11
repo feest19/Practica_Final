@@ -16,16 +16,12 @@ namespace Practica_Final.Pages.Dashboard
     public class IndexModel : PageModel
     {
         private readonly IRepositoryCuentaBancarias _repositoryCuentas;
-        private readonly IRepositoryUsuario _repositoryUsuario;
-        private readonly IRepositoryTransferencia _repositoryTransferencia;
 
-        public  IndexModel(IRepositoryTransferencia transferenciaServices, IRepositoryUsuario UserServices,IRepositoryCuentaBancarias CuentasServices)
+        public  IndexModel(IRepositoryCuentaBancarias CuentasServices)
         {
             this._repositoryCuentas = CuentasServices;
-            this._repositoryUsuario = UserServices;
-            this._repositoryTransferencia = transferenciaServices;
+            //this._repositoryTransferencia = transferenciaServices;
             this.Cuentas = new List<CuentaBancaria>();
-            this.transferencias = new List<Transferencia>();
         }
         public IList<CuentaBancaria> Cuentas { get; set; } 
         public IList<Transferencia> transferencias { get; set; }
@@ -39,16 +35,12 @@ namespace Practica_Final.Pages.Dashboard
             if (success)
             {
                 this.Cuentas = await _repositoryCuentas.GetCuentasBancariasByUserId(idUsuario);
-                this.transferencias =await _repositoryTransferencia.getTransferenciaByCuentaId(idUsuario);
+                //this.transferencias =await _repositoryTransferencia.getTransferenciaByCuentaId(idUsuario);
             }
         }
 
         #region method
-        public string getUsuarioByCuenta(int cuenta) => _repositoryCuentas.getUsuarioByCuenta(cuenta);
-
         public string getTipoCuenta(int tipo) => _repositoryCuentas.getTipoCuenta(tipo);
-
-        public int getNumCuenta(int cuentaId) => _repositoryCuentas.getNumeroCuenta(cuentaId);
         #endregion
     }
 }
