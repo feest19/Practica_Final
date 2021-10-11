@@ -75,39 +75,46 @@
         <section class="section">
 
             <form action="">
-                <label for="trasferencias">Selecciona el tipos de transancion:</label>
-                <select name="trasferencias" id="trasferencias">
-                    <option value="Terceros">Terceros</option>
-                    <option value="Entre tus cuentas">Entre tus cuentas</option>
-                    <option value="Entre otros bancos">Entre otros bancos</option>
-                    <option value="Empresas">Empresas</option>
-                    <option value="Cuentas prepagas virtuales">Cuentas prepagas virtuales</option>
-                    <option value="Cuentas prepagas virtuales expresas">Cuentas prepagas virtuales expresas</option>
-                </select>
-                <br><br>
 
-                <label for="trasferencias">Selecciona el tipos de cuenta:</label>
-                <select name="trasferencias" id="trasferencias">
-                    <option value="ahorros">Cuenta de ahorros</option>
-                    <option value="nomina">Cuenta nomina</option>
-                    <option value="corriente">Cuenta corriente</option>
-                </select>
+                <label for="trasferencias">Realise la tranferencia:</label>
+                <!--
+    <label for="trasferencias">Selecciona el tipos de transancion:</label>
+    <select name="trasferencias" id="trasferencias">
+        <option value="Terceros">Terceros</option>
+        <option value="Entre tus cuentas">Entre tus cuentas</option>
+        <option value="Entre otros bancos">Entre otros bancos</option>
+        <option value="Empresas">Empresas</option>
+        <option value="Cuentas prepagas virtuales">Cuentas prepagas virtuales</option>
+        <option value="Cuentas prepagas virtuales expresas">Cuentas prepagas virtuales expresas</option>
+    </select>
+    <br><br>
+
+    <label for="trasferencias">Selecciona el tipos de cuenta:</label>
+    <select name="trasferencias" id="trasferencias">
+        <option value="ahorros">Cuenta de ahorros</option>
+        <option value="nomina">Cuenta nomina</option>
+        <option value="corriente">Cuenta corriente</option>
+    </select>
+
+    -->
 
                 <br><br>
                 <label>Cuenta de destino</label><br>
                 <input type="text" id="destino" name="destino">
                 <br><br>
+                <br><br>
+                <label>Cuenta de remitente</label><br>
+                <input type="text" id="remitente" name="remitente">
+                <br><br>
                 <label>Fecha de la Transferencia</label><br>
                 <input type="text" id="fecha" name="fecha">
                 <br><br>
-                <label>Via de pago</label><br>
-                <input type="text" id="destino" name="destino">
-                <br><br>
+
                 <label>
                     Monto:<br><br>
                     <label>
                         RD$:
-                        <input type="text" id="debito" name="debito">
+                        <input type="text" id="monto" name="monto">
                         <br><br>
                         <input type="submit" value="Submit">
             </form>
