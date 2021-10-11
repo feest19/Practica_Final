@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Practica_Final.Infrastructure.Repositories
 {
@@ -47,5 +48,16 @@ namespace Practica_Final.Infrastructure.Repositories
             return isExiste;
         }
         public async Task<Usuario> GetUsuarioById(int id) => await _context.Usuarios.FirstOrDefaultAsync(u=> u.Id == id);
+
+        public Usuario UsuarioById(int id)
+        {
+            return this._context.Usuarios.FirstOrDefault(u => u.Id == id);
+        }
+
+        public async Task Update(Usuario usuario)
+        {
+            _context.Attach(usuario).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
     }
 }

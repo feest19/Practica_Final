@@ -38,5 +38,12 @@ namespace Practica_Final.Infrastructure.Repositories
             lTransferencias = await query.ToListAsync();
             return lTransferencias;
         }
+
+        public async Task<bool> Insert(Transferencia transferencia)
+        {
+            await this._context.Transferencias.AddAsync(transferencia);
+            int isSuccess = await _context.SaveChangesAsync();
+            return isSuccess > 0;
+        }
     }
 }

@@ -25,12 +25,8 @@
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user" aria-expanded="false"> <img alt="image" src="assets/img/user.png" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
                 <div class="dropdown-menu dropdown-menu-right pullDown">
                     <div class="dropdown-title">Hola @User.Identity.Name</div>
-                    <a href="profile.html" class="dropdown-item has-icon">
-                        <i class="far
-										fa-user"></i> Profile
-                    </a>  <a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i>
-                        Settings
+                    <a href="/Dashboard/Usuario" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item has-icon text-danger" asp-area="" asp-page="/Logout">
@@ -44,7 +40,7 @@
     <div class="main-sidebar sidebar-style-2" tabindex="1" style="overflow: hidden; outline: none;">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="index.html">
+                <a href="/Dashboard">
                     Netbanking
                 </a>
             </div>
@@ -57,10 +53,10 @@
                     <a href="/Dashboard/Transferencias" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Transferencias</span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="/Dashboard/Cuentas" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Histórico de transacciones</span></a>
+                    <a href="/Dashboard/Cuentas" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Cuentas</span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="/Dashboard/TipoCuentas" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Histórico de transacciones</span></a>
+                    <a href="/Dashboard/TipoCuentas" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Tipos de cuentas</span></a>
                 </li>
                 <li class="dropdown">
                     <a href="/Dashboard/Transacciones" class="nav-link toggled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Histórico de transacciones</span></a>
@@ -71,12 +67,73 @@
     <!-- Main Content -->
     <div class="main-content" style="min-height: 239px;">
         <section class="section">
-      
+            <div class="section-body">
+                <div class="row mt-sm-4">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="tab-content tab-bordered" id="myTab3Content">
+
+                                <div class="tab-pane fade active show" id="settings" role="tabpanel" aria-labelledby="profile-tab2">
+                                    <form method="post" class="needs-validation" novalidate="">
+                                        <div class="card-header">
+                                            <h4>Editar Perfil</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Nombre</label>
+                                                    <input type="text" asp-for="usuarioModel.Nombre" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Por favor ingrese el nombre
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Apellido</label>
+                                                    <input type="text" asp-for="usuarioModel.Apellido" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Por favor ingrese el apellido
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <label>Email</label>
+                                                    <input type="email" asp-for="usuarioModel.Email" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Por favor ingrese el correo
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <button class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                    @if (ViewData["validacion"] != null)
+                                    {
+                                        <div class="alert alert-danger mt-3">
+                                            @ViewData["validacion"]
+                                        </div>
+                                    }
+                                    @if (ViewData["isSuccess"] != null)
+                                    {
+                                        <div class="alert alert-success mt-3">
+                                            @ViewData["isSuccess"]
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
     <footer class="main-footer">
         <div class="footer-left">
-            <a href="templateshub.net">Templateshub</a>
+            <a href="/Dashboard">
+                Netbanking
+            </a>
         </div>
         <div class="footer-right">
         </div>

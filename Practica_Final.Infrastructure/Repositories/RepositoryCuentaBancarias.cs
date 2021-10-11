@@ -56,5 +56,43 @@ namespace Practica_Final.Infrastructure.Repositories
         {
             return _context.CuentasBancarias.FirstOrDefault(c=> c.Id == id).NumeroCuenta;
         }
+
+        public async Task Update(CuentaBancaria cuenta)
+        {
+            _context.Attach(cuenta).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public CuentaBancaria GetCuentaByIdCuenta(int cuenta)
+        {
+            return this._context.CuentasBancarias.FirstOrDefault(c => c.NumeroCuenta == cuenta);
+        }
+
+        public CuentaBancaria GetCuentaById(int id)
+        {
+            return this._context.CuentasBancarias.FirstOrDefault(c => c.Id == id);
+        }
+
+        public async Task<bool> Insert(CuentaBancaria cuenta)
+        {
+            await _context.CuentasBancarias.AddAsync(cuenta);
+            int isSuccess = await _context.SaveChangesAsync();
+            return isSuccess > 0;
+        }
+
+        public bool IsNumeroCuentaExist(int cuenta)
+        {
+            bool isExiste = false;
+            try
+            {
+                var usuario = this._context.CuentasBancarias.FirstOrDefault(c => c.NumeroCuenta == cuenta);
+                isExiste = usuario != null;
+            }
+            catch (Exception)
+            {
+                isExiste = false;
+            }
+            return isExiste;
+        }
     }
 }

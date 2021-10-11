@@ -22,6 +22,7 @@ namespace Practica_Final.Infrastructure
             services.AddTransient<IRepositoryUsuario,RepositoryUsuario>();
             services.AddTransient<IRepositoryCuentaBancarias, RepositoryCuentaBancarias>();
             services.AddTransient<IRepositoryTransferencia, RepositoryTransferencia>();
+            services.AddTransient<IRepositoryTipoCuenta, RepositoryTipoCuenta>();
         }
     }
 }
