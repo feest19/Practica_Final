@@ -10,6 +10,12 @@ namespace Practica_Final.Infrastructure.Repositories
     {
         public Task<List<CuentaBancaria>> GetCuentasBancariasByUserId(int userID);
         public Task<Usuario> GetUserByCuentasBancariaID(int cuentaId);
+
+        public string getUsuarioByCuenta(int id);
+
+        public string getTipoCuenta(int id);
+
+        public int getNumeroCuenta(int id);
  
     }
 }

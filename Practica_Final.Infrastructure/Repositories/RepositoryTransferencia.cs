@@ -20,7 +20,7 @@ namespace Practica_Final.Infrastructure.Repositories
         public async Task<List<Transferencia>> getTransferenciaByCuentaId(int cuentaID) {
             List<Transferencia> lTransferencias;
                 var query = from t in _context.Transferencias
-                            where t.CuentaBancariaDestinatarioId == cuentaID || t.CuentaBancariaDestinatarioId == cuentaID
+                            where t.CuentaBancariaDestinatarioId == cuentaID || t.CuentaBancariaRemitentetarioId == cuentaID
                             orderby t.Fecha descending
                             select t;
                 lTransferencias = await query.ToListAsync();

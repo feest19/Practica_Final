@@ -44,7 +44,11 @@ namespace Practica_Final.Pages.Dashboard
         }
 
         #region method
- 
+        public string getUsuarioByCuenta(int cuenta) => _repositoryCuentas.getUsuarioByCuenta(cuenta);
+
+        public string getTipoCuenta(int tipo) => _repositoryCuentas.getTipoCuenta(tipo);
+
+        public int getNumCuenta(int cuentaId) => _repositoryCuentas.getNumeroCuenta(cuentaId);
         #endregion
     }
 }

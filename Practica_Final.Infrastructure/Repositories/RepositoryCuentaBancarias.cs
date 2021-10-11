@@ -18,6 +18,17 @@ namespace Practica_Final.Infrastructure.Repositories
         }
         public async Task<List<CuentaBancaria>> GetCuentasBancariasByUserId(int usuario) => await _context.CuentasBancarias.Where(x => x.UsuarioId == usuario).ToListAsync();
 
+        public string getUsuarioByCuenta(int id)
+        {
+            var query = from u in _context.Usuarios
+                        join c in _context.CuentasBancarias on u.Id equals c.UsuarioId
+                        where c.Id == id
+                        select u;
+            var usuarioName = String.Format($"{query.First().Nombre} {query.First().Apellido}");
+
+            return usuarioName;
+        }
+
         public async Task<Usuario> GetUserByCuentasBancariaID(int cuentaId)
         {
             Usuario usuario;
@@ -36,6 +47,14 @@ namespace Practica_Final.Infrastructure.Repositories
             return usuario;
         }
 
-    
+        public string getTipoCuenta(int id)
+        {
+            return _context.TipoCuentas.FirstOrDefault(t => t.Id == id).Tipo;
+        }
+
+        public int getNumeroCuenta(int id)
+        {
+            return _context.CuentasBancarias.FirstOrDefault(c=> c.Id == id).NumeroCuenta;
+        }
     }
 }
