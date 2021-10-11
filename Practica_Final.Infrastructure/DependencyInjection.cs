@@ -20,6 +20,8 @@ namespace Practica_Final.Infrastructure
                         b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
             });
             services.AddTransient<IRepositoryUsuario,RepositoryUsuario>();
+            services.AddTransient<IRepositoryCuentaBancarias, RepositoryCuentaBancarias>();
+            services.AddTransient<IRepositoryTransferencia, RepositoryTransferencia>();
         }
     }
 }

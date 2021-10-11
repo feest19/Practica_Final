@@ -10,5 +10,6 @@ namespace Practica_Final.Infrastructure.Repositories
     {
         public Task<bool> Register(Usuario usuario);
         public Task<bool> IsUsuarioExist(string email);
+        public Task<Usuario> GetUsuarioById(int id);
     }
 }

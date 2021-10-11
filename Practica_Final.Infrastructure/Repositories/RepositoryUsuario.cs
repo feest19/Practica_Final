@@ -46,5 +46,6 @@ namespace Practica_Final.Infrastructure.Repositories
             }
             return isExiste;
         }
+        public async Task<Usuario> GetUsuarioById(int id) => await _context.Usuarios.FirstOrDefaultAsync(u=> u.Id == id);
     }
 }
