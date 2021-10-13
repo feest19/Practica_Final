@@ -100,8 +100,35 @@
 
             </div>
 
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>Numero de la cuenta</th>
+                                        <th>Tipo de cuenta</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                    @if (Model.cuentasModels is not null)
+                                    {
+                                        @foreach (var cuenta in Model.cuentasModels)
+                                        {
+                                            <tr>
+                                                <td>@cuenta.NumeroCuenta</td>
+                                                <td>@cuenta.Tipo</td>
+                                                <td>@cuenta.Monto.ToString("C", System.Globalization.CultureInfo.CurrentCulture)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            
 
         </section>
 
