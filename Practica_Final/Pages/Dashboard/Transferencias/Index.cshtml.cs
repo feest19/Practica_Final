@@ -88,6 +88,13 @@ namespace Practica_Final.Pages.Dashboard.Transferencias
             }
             await GetNumerosCuentas();
         }
+
+        public string GetIniciales()
+        {
+            string name = User.FindFirstValue(ClaimTypes.GivenName).Substring(0, 1);
+            string lastName = User.FindFirstValue(ClaimTypes.Surname).Substring(0, 1);
+            return $"{name}{lastName}";
+        }
     }
 
     public class NumerosCuentasModel

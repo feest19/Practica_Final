@@ -17,17 +17,15 @@ namespace Practica_Final.Pages.Dashboard
     public class IndexModel : PageModel
     {
         private readonly IRepositoryCuentaBancarias _repositoryCuentas;
-        public IList<CuentaBancaria> Cuentas { get; set; }
-        public IList<Transferencia> transferencias { get; set; }
         public string Usuario { get; set; }
         public List<CuentasModel> cuentasModels { get; set; }
         private readonly ApplicationDbContext _Context;
 
+
         public  IndexModel(IRepositoryCuentaBancarias CuentasServices, ApplicationDbContext context)
         {
             this._repositoryCuentas = CuentasServices;
-            _Context = context;
-            this.Cuentas = new List<CuentaBancaria>();
+            this._Context = context;
         }
 
 
@@ -35,10 +33,8 @@ namespace Practica_Final.Pages.Dashboard
         {
             int idUsuario;
             bool success = Int32.TryParse(this.User.FindFirstValue(ClaimTypes.NameIdentifier), out idUsuario);
-
             if (success)
             {
-                this.Cuentas = await _repositoryCuentas.GetCuentasBancariasByUserId(idUsuario);
                 var result = await _repositoryCuentas.GetCuentasBancariasByUserId(idUsuario);
                 this.cuentasModels = _Context.CuentasBancarias.Join(
                         _Context.TipoCuentas,
@@ -49,15 +45,20 @@ namespace Practica_Final.Pages.Dashboard
                             NumeroCuenta = cuentaBancaria.NumeroCuenta,
                             Tipo = tipoCuenta.Tipo,
                             Monto = cuentaBancaria.Monto,
+                            Fecha = cuentaBancaria.Fecha
                             
                         }
                         ).ToList();
             }
         }
 
-        #region method
-        public string getTipoCuenta(int tipo) => _repositoryCuentas.getTipoCuenta(tipo);
-        #endregion
+        public string GetIniciales()
+        {
+            string name = User.FindFirstValue(ClaimTypes.GivenName).Substring(0,1);
+            string lastName = User.FindFirstValue(ClaimTypes.Surname).Substring(0,1);
+            return $"{name}{lastName}";
+        }
+
     }
 
     public class CuentasModel
@@ -65,7 +66,7 @@ namespace Practica_Final.Pages.Dashboard
         public int NumeroCuenta { get; set; }
         public string Tipo { get; set; }
         public double Monto { get; set; }
-        //public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; }
     }
 
 

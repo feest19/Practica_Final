@@ -34,7 +34,7 @@ namespace Practica_Final.Pages.Dashboard.Cuentas
             this.tipoCuentas = await _repositoryTipoCuenta.GetAllTipoCuenta();
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
@@ -43,14 +43,17 @@ namespace Practica_Final.Pages.Dashboard.Cuentas
                     var cuenta = new CuentaBancaria();
                     cuenta.Monto = cuentaBancariaModel.Monto;
                     cuenta.NumeroCuenta = GenerarNumeroCuenta();
+                    cuenta.Fecha = DateTime.Now;
                     cuenta.UsuarioId = int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
                     cuenta.TipoCuentaId = cuentaBancariaModel.IdTipoCuenta;
                     await this._repositoryCuentaBancaria.Insert(cuenta);
                     cuentaBancariaModel = null;
                     ViewData["cuentaCreada"] = "Cuenta creada correctamente";
                     ViewData["numeroCuenta"] = $"El numero de la cuenta es: {cuenta.NumeroCuenta}";
+                    return Page();
                 }
             }
+            return Page();
         }
 
         private int GenerarNumeroCuenta()
@@ -62,6 +65,13 @@ namespace Practica_Final.Pages.Dashboard.Cuentas
                 numero = GenerarNumeroCuenta();
             }
             return numero;
+        }
+
+        public string GetIniciales()
+        {
+            string name = User.FindFirstValue(ClaimTypes.GivenName).Substring(0, 1);
+            string lastName = User.FindFirstValue(ClaimTypes.Surname).Substring(0, 1);
+            return $"{name}{lastName}";
         }
     }
 

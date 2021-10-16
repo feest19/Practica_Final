@@ -59,6 +59,13 @@ namespace Practica_Final.Pages.Dashboard.Usuario
             var usuario = await _repositoryUsuario.GetUsuarioById(idUsuario);
             return usuario;
         }
+
+        public string GetIniciales()
+        {
+            string name = User.FindFirstValue(ClaimTypes.GivenName).Substring(0, 1);
+            string lastName = User.FindFirstValue(ClaimTypes.Surname).Substring(0, 1);
+            return $"{name}{lastName}";
+        }
     }
 
     public class UsuarioModel

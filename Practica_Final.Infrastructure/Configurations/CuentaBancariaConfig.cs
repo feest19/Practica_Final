@@ -26,6 +26,8 @@ namespace Practica_Final.Infrastructure.Configurations
                 HasForeignKey(u => u.TipoCuentaId);
             builder.Property(c => c.Monto)
                 .IsRequired();
+             builder.Property(c => c.Fecha)
+                .IsRequired();
         }
     }
 }

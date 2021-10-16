@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace Practica_Final.Pages.Dashboard.TipoCuentas
               
                 if (_repositoryTipoCuenta.TipoCuentaExist(tipoCuentasModel.tipo))
                 {
-                    ViewData["validacion"] = $"El tipo de cuenta ${tipoCuentasModel.tipo} ya existe";
+                    ViewData["validacion"] = $"El tipo de cuenta {tipoCuentasModel.tipo} ya existe";
                 }
                 else
                 {
@@ -48,6 +49,13 @@ namespace Practica_Final.Pages.Dashboard.TipoCuentas
                     ViewData["isSuccess"] = "Tipo de cuenta creado correctamente";
                 }
             }
+        }
+
+        public string GetIniciales()
+        {
+            string name = User.FindFirstValue(ClaimTypes.GivenName).Substring(0, 1);
+            string lastName = User.FindFirstValue(ClaimTypes.Surname).Substring(0, 1);
+            return $"{name}{lastName}";
         }
     }
 

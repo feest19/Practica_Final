@@ -24,7 +24,9 @@
         <ul class="navbar-nav navbar-right">
 
             <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user" aria-expanded="false"> <img alt="image" src="assets/img/user.png" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user" aria-expanded="false">
+                    <figure class="avatar mr-2 bg-warning text-white" data-initial=@Model.GetIniciales()></figure> <span class="d-sm-none d-lg-inline-block"></span>
+                </a>
                 <div class="dropdown-menu dropdown-menu-right pullDown">
                     <div class="dropdown-title">Hola @User.Identity.Name</div>
                     <a href="/Dashboard/Usuario" class="dropdown-item has-icon">
@@ -81,7 +83,7 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Selecione la cuenta remitente</label>
-                                            <select asp-for="transferenciaModel.NumeroCuentaRemitente" class="form-control">
+                                            <select asp-for="transferenciaModel.NumeroCuentaRemitente" required class="form-control">
                                                 @if (Model.listaNumerosCuentas is not null)
                                                 {
                                                     @foreach (var numero in Model.listaNumerosCuentas)
@@ -110,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                        <button type="submit"  class="btn btn-primary btn-lg btn-block">
                                             Transferir
                                         </button>
                                     </div>
